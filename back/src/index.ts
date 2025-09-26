@@ -70,9 +70,7 @@ ponder.on("SecurityCouncilNomineeGovernor:VoteCastForContender", async ({ event,
         bio: null,
         totalVotes: BigInt(0),
         nominated: false,
-        rejected: false,
         title: null,
-        tallyUpdatedAt: null,
     }).onConflictDoUpdate({
         ensName: contenderEnsName,
         ensUpdatedAt: contenderEnsUpdatedAt,
@@ -80,7 +78,7 @@ ponder.on("SecurityCouncilNomineeGovernor:VoteCastForContender", async ({ event,
     });
 });
 
-ponder.on("setup", async ({ context }) => {
+ponder.on("SecurityCouncilNomineeGovernor:setup", async ({ context }) => {
     const tallyContenders = await fetchTallyContenders();
     const currentTimestamp = BigInt(Math.floor(Date.now() / 1000));
 
@@ -99,9 +97,7 @@ ponder.on("setup", async ({ context }) => {
                 bio: dbContender.bio,
                 totalVotes: dbContender.totalVotes,
                 nominated: dbContender.nominated,
-                rejected: dbContender.rejected,
                 title: dbContender.title,
-                tallyUpdatedAt: dbContender.tallyUpdatedAt,
             })
             .onConflictDoUpdate({
                 name: dbContender.name,
@@ -109,9 +105,7 @@ ponder.on("setup", async ({ context }) => {
                 bio: dbContender.bio,
                 totalVotes: dbContender.totalVotes,
                 nominated: dbContender.nominated,
-                rejected: dbContender.rejected,
                 title: dbContender.title,
-                tallyUpdatedAt: dbContender.tallyUpdatedAt,
             });
     }
 });

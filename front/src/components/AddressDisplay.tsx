@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useENS } from '../hooks/useENS';
 import { formatAddress } from '../lib/utils';
 
 interface AddressDisplayProps {
@@ -19,8 +18,6 @@ export default function AddressDisplay({
   showCopyButton = false,
   copyButtonSize = 'sm'
 }: AddressDisplayProps) {
-  // Fallback to client-side ENS resolution only if no backend ENS name is provided
-  const { ensName: clientEnsName, loading } = useENS(ensName ? '' : address);
   const [copiedAddress, setCopiedAddress] = useState<string>('');
 
   const copyToClipboard = async () => {
@@ -33,26 +30,17 @@ export default function AddressDisplay({
     }
   };
 
-  // Use backend ENS name first, then client-side ENS resolution, then formatted address
-  const displayText = ensName || clientEnsName || formatAddress(address);
+  // Use backend ENS name or formatted address
+  const displayText = ensName || formatAddress(address);
   const iconSize = copyButtonSize === 'sm' ? 'w-3 h-3' : 'w-4 h-4';
-  
-  // Show loading indicator when ENS resolution is in progress (only for client-side fallback)
-  const isLoading = !ensName && loading;
 
   return (
     <span className={`inline-flex items-center space-x-1 ${className}`}>
       <span
-        className={`font-mono ${isLoading ? 'animate-pulse' : ''}`}
-        title={(ensName || clientEnsName) ? `${ensName || clientEnsName} (${address})` : address}
+        className="font-mono"
+        title={ensName ? `${ensName} (${address})` : address}
       >
-        {isLoading ? (
-          <span className="text-gray-400">
-            {formatAddress(address)}
-          </span>
-        ) : (
-          displayText
-        )}
+        {displayText}
       </span>
       {showCopyButton && (
         <button

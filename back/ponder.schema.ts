@@ -31,9 +31,7 @@ export const contender = onchainTable("contender", (t) => ({
   bio: t.text(),
   totalVotes: t.bigint(),
   nominated: t.boolean(),
-  rejected: t.boolean(),
   title: t.text(),
-  tallyUpdatedAt: t.bigint(),
 }));
 
 //relation between vote and voter

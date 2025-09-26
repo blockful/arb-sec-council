@@ -1,6 +1,10 @@
 import { createConfig } from "ponder";
+import { config } from "dotenv";
 
 import { SecurityCouncilNomineeGovernorAbi } from "./abis/SecurityCouncilNomineeGovernorAbi";
+
+// Load environment variables from .env file
+config();
 
 export default createConfig({
   chains: {

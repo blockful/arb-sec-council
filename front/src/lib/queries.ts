@@ -1,17 +1,17 @@
 import { gql } from '@apollo/client';
 
 export const GET_VOTES = gql`
-  query GetVotes($limit: Int = 50) {
+  query GetVotes {
     votes(
       orderBy: "timestamp"
       orderDirection: "desc"
-      limit: $limit
     ) {
       items {
         id
         contender {
           address
           ensName
+          name
         }
         voter {
           address
@@ -39,6 +39,7 @@ export const GET_VOTER_STATS = gql`
         contender {
           address
           ensName
+          name
         }
         voter {
           address
@@ -73,6 +74,7 @@ export const GET_ELECTION_STATS = gql`
       items {
         address
         ensName
+        name
       }
     }
   }
@@ -90,6 +92,26 @@ export const GET_UNIQUE_VOTERS = gql`
         updatedAt
         votingPower
         availableVotes
+      }
+    }
+  }
+`;
+
+export const GET_CONTENDERS = gql`
+  query GetContenders {
+    contenders(
+      orderBy: "totalVotes"
+      orderDirection: "desc"
+    ) {
+      items {
+        address
+        ensName
+        name
+        picture
+        bio
+        totalVotes
+        nominated
+        title
       }
     }
   }

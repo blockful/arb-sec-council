@@ -12,6 +12,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "dotenv": "^17.2.2",
     "ethers": "^6.15.0",
     "hono": "^4.5.0",
     "ponder": "^0.13.6",

@@ -71,7 +71,7 @@ export async function fetchTallyContenders(electionNumber: number = 4): Promise<
     }
     
     const data: TallyResponse = await response.json();
-    console.log(data.data.nominationRound.contenders);
+
     
     if (!data.data?.nominationRound?.contenders) {
       throw new Error('Invalid response structure from Tally API');
@@ -92,8 +92,6 @@ export function mapTallyContenderToDb(contender: TallyContender, timestamp: bigi
     bio: contender.account.bio || null,
     totalVotes: BigInt(contender.totalVotes || 0),
     nominated: contender.nominated || false,
-    rejected: contender.rejected || false,
     title: contender.accountElectionMeta?.title || null,
-    tallyUpdatedAt: timestamp,
   };
 }
