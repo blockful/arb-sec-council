@@ -6,7 +6,8 @@ export function formatAddress(address: string): string {
 
 export function formatTimeAgo(timestamp: bigint): string {
   const date = new Date(Number(timestamp) * 1000);
-  return formatDistanceToNow(date, { addSuffix: true });
+  const result = formatDistanceToNow(date, { addSuffix: true, includeSeconds: true });
+  return result.replace(/^about\s+/, '');
 }
 
 export function formatVotes(votes: bigint, decimals: number = 18): string {

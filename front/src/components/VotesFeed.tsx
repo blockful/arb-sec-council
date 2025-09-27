@@ -101,11 +101,11 @@ export default function VotesFeed() {
             votes.map((vote) => (
               <div
                 key={vote.id}
-                className="border border-border-default rounded-lg p-4 hover:bg-surface-hover transition-colors"
+                className="border border-border-default rounded-lg p-3 hover:bg-surface-hover transition-colors"
               >
                 <div className="flex justify-between items-start mb-2">
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center space-x-1 text-sm text-text-primary">
+                  <div className="text-sm text-text-primary">
+                    <div className="mb-1">
                       <AddressDisplay
                         address={vote.voter.address}
                         ensName={vote.voter.ensName}
@@ -113,7 +113,9 @@ export default function VotesFeed() {
                         showCopyButton={true}
                         copyButtonSize="sm"
                       />
-                      <span>{' → '}</span>
+                    </div>
+                    <div className="text-text-secondary mb-1">voted for</div>
+                    <div className="mb-1">
                       <AddressDisplay
                         address={vote.contender.address}
                         ensName={vote.contender.name || vote.contender.ensName}
@@ -122,25 +124,18 @@ export default function VotesFeed() {
                         copyButtonSize="sm"
                       />
                     </div>
-                    <p className="text-lg font-semibold text-text-primary">
-                      {formatVotes(BigInt(vote.votes))} votes
-                    </p>
+                    <div className="text-lg font-semibold text-text-primary">
+                      with {formatVotes(BigInt(vote.votes))} votes
+                    </div>
                   </div>
                   <div className="text-xs text-text-dimmed whitespace-nowrap ml-4">
                     {formatTimeAgo(BigInt(vote.timestamp))}
                   </div>
                 </div>
 
-                <div className="text-xs text-text-secondary space-x-4">
-                  <span>
-                    Vote Amount: {formatVotes(BigInt(vote.votes))}
-                  </span>
-                  <span>
-                    Voting Power: {formatVotes(BigInt(vote.voter.votingPower))}
-                  </span>
-                  <span>
-                    Available: {formatVotes(BigInt(vote.availableVotes))}
-                  </span>
+                <div className="text-xs text-text-secondary space-y-0.5">
+                  <div>Delegate Voting Power: {formatVotes(BigInt(vote.voter.votingPower))}</div>
+                  <div>Delegate Remaining Voting Power: {formatVotes(BigInt(vote.availableVotes))}</div>
                 </div>
               </div>
             ))
