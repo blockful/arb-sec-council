@@ -116,3 +116,25 @@ export const GET_CONTENDERS = gql`
     }
   }
 `;
+
+export const GET_CONTENDER_VOTES = gql`
+  query GetContenderVotes($contender: String!) {
+    votes(
+      where: { contender: $contender }
+      orderBy: "votes"
+      orderDirection: "desc"
+    ) {
+      items {
+        id
+        voter {
+          address
+          ensName
+          votingPower
+          availableVotes
+        }
+        votes
+        timestamp
+      }
+    }
+  }
+`;
