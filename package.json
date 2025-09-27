@@ -1,0 +1,31 @@
+{
+  "name": "arb-sec-council",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Arbitrum Security Council monorepo",
+  "scripts": {
+    "dev": "pnpm run --parallel dev",
+    "back:dev": "pnpm --filter backend dev",
+    "front:dev": "pnpm --filter frontend dev",
+    "back:start": "pnpm --filter backend start",
+    "front:start": "pnpm --filter frontend start",
+    "back:build": "pnpm --filter backend build",
+    "front:build": "pnpm --filter frontend build",
+    "back:lint": "pnpm --filter backend lint",
+    "front:lint": "pnpm --filter frontend lint",
+    "back:typecheck": "pnpm --filter backend typecheck",
+    "front:typecheck": "pnpm --filter frontend typecheck",
+    "lint": "pnpm run --parallel lint",
+    "typecheck": "pnpm run --parallel typecheck",
+    "clean": "pnpm run --parallel clean",
+    "install:all": "pnpm install"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  },
+  "engines": {
+    "node": ">=18.14",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.15.0"
+}
