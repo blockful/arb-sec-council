@@ -9,7 +9,6 @@
     "front:dev": "pnpm --filter frontend dev",
     "back:start": "pnpm --filter backend start",
     "front:start": "pnpm --filter frontend start",
-    "back:build": "pnpm --filter backend build",
     "front:build": "pnpm --filter frontend build",
     "back:lint": "pnpm --filter backend lint",
     "front:lint": "pnpm --filter frontend lint",
