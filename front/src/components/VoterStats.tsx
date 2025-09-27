@@ -35,18 +35,19 @@ export default function VoterStats() {
   return (
     <Card className="bg-surface-default">
       <CardHeader>
-        <h2 className="text-xl font-semibold text-text-primary mb-6">
-          Voters
-        </h2>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-semibold text-text-primary">
+            Voters
+          </h2>
+          {/* Compact Filter Controls */}
+          <VoterFilter 
+            filterState={filterState} 
+            onFilterChange={setFilterState} 
+          />
+        </div>
       </CardHeader>
       
       <CardContent>
-        {/* Filter Controls */}
-        <VoterFilter 
-          filterState={filterState} 
-          onFilterChange={setFilterState} 
-        />
-
         {/* Voter Cards */}
         {sortedVoters.length > 0 ? (
           <div className="space-y-3">

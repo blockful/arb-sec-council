@@ -62,7 +62,10 @@ function ContenderCard({ contender, index }: { contender: Contender; index: numb
   // Sort voters based on selected option
   const sortedVoters = [...contenderVotes].sort((a, b) => {
     if (sortBy === 'vp') {
-      return BigInt(b.voter.votingPower) > BigInt(a.voter.votingPower) ? 1 : -1;
+      // Sort by voting power (highest first)
+      const aPower = BigInt(a.voter.votingPower);
+      const bPower = BigInt(b.voter.votingPower);
+      return aPower > bPower ? -1 : aPower < bPower ? 1 : 0;
     } else {
       // Sort by timestamp (most recent first)
       return BigInt(b.timestamp) > BigInt(a.timestamp) ? 1 : -1;
@@ -106,31 +109,37 @@ function ContenderCard({ contender, index }: { contender: Contender; index: numb
           </div>
           
           {contender.title && (
-            <p className="text-sm text-text-secondary mb-2">
+            <p className="text-sm text-text-secondary mb-1">
               {contender.title}
             </p>
           )}
           
           {contender.bio && (
-            <p className="text-sm text-text-secondary mb-2 line-clamp-2">
+            <p className="text-sm text-text-secondary mb-1 line-clamp-2">
               {contender.bio}
             </p>
           )}
           
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between mb-2">
             <div className="text-lg font-semibold text-text-primary">
               {formatVotes(BigInt(contender.totalVotes))} votes
             </div>
-            <div className="flex items-center space-x-2">
-              <div className="text-xs text-text-dimmed">
-                Total received
-              </div>
-              {/* Expand/Collapse Button */}
-              <button
-                onClick={() => setIsExpanded(!isExpanded)}
-                className="text-text-secondary hover:text-text-primary transition-colors p-1"
-                aria-label={isExpanded ? 'Hide voters' : 'Show voters'}
-              >
+            <div className="text-xs text-text-dimmed">
+              Total received
+            </div>
+          </div>
+          
+          {/* Expand/Collapse Button - Moved to bottom */}
+          <div className="flex justify-center mt-1">
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="text-text-secondary hover:text-text-primary transition-colors px-3 py-1 rounded-md hover:bg-surface-hover"
+              aria-label={isExpanded ? 'Hide voters' : 'Show voters'}
+            >
+              <div className="flex items-center space-x-1">
+                <span className="text-xs">
+                  {isExpanded ? 'Hide voters' : 'Show voters'}
+                </span>
                 <svg
                   className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
                   fill="none"
@@ -139,8 +148,8 @@ function ContenderCard({ contender, index }: { contender: Contender; index: numb
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
-              </button>
-            </div>
+              </div>
+            </button>
           </div>
         </div>
       </div>

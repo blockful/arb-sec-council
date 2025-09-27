@@ -36,40 +36,38 @@ export default function VoterFilter({ filterState, onFilterChange }: VoterFilter
   };
 
   return (
-    <div className="mb-6">
-      <div className="flex flex-wrap gap-2">
-        <span className="text-sm font-medium text-gray-700 dark:text-gray-300 self-center mr-2">
-          Sort by:
-        </span>
-        {sortOptions.map((option) => {
-          const isActive = filterState.sortBy === option.value;
-          const isDesc = filterState.direction === 'desc';
-          
-          return (
-            <button
-              key={option.value}
-              onClick={() => handleSortChange(option.value)}
-              className={`
-                inline-flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors
-                ${isActive
-                  ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
-                }
-              `}
-              title={option.description}
-            >
-              {option.label}
-              {isActive && (
-                isDesc ? (
-                  <ChevronDownIcon className="w-4 h-4" />
-                ) : (
-                  <ChevronUpIcon className="w-4 h-4" />
-                )
-              )}
-            </button>
-          );
-        })}
-      </div>
+    <div className="flex items-center gap-2">
+      <span className="text-xs font-medium text-text-dimmed">
+        Sort:
+      </span>
+      {sortOptions.map((option) => {
+        const isActive = filterState.sortBy === option.value;
+        const isDesc = filterState.direction === 'desc';
+        
+        return (
+          <button
+            key={option.value}
+            onClick={() => handleSortChange(option.value)}
+            className={`
+              inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium transition-colors
+              ${isActive
+                ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
+              }
+            `}
+            title={option.description}
+          >
+            {option.label}
+            {isActive && (
+              isDesc ? (
+                <ChevronDownIcon className="w-3 h-3" />
+              ) : (
+                <ChevronUpIcon className="w-3 h-3" />
+              )
+            )}
+          </button>
+        );
+      })}
     </div>
   );
 }

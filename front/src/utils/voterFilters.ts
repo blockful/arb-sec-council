@@ -26,7 +26,7 @@ export function sortVoters(voters: Voter[], filterState: VoterFilterState): Vote
         // votingPower is a string representation of BigInt
         const aPower = BigInt(a.votingPower);
         const bPower = BigInt(b.votingPower);
-        comparison = aPower > bPower ? 1 : aPower < bPower ? -1 : 0;
+        comparison = aPower > bPower ? -1 : aPower < bPower ? 1 : 0;
         break;
         
       default:

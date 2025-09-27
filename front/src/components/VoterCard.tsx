@@ -63,7 +63,7 @@ export default function VoterCard({ voter }: VoterCardProps) {
     <Card className="bg-surface-default border border-border-default">
       {/* Card Header - Always Visible */}
       <CardContent>
-        <div className="flex items-center justify-between mb-3">
+        <div className="mb-2">
           <AddressDisplay
             address={voter.address}
             ensName={voter.ensName}
@@ -71,25 +71,10 @@ export default function VoterCard({ voter }: VoterCardProps) {
             showCopyButton={true}
             copyButtonSize="sm"
           />
-          <TheButton
-            variant="ghost"
-            size="sm"
-            onClick={handleExpand}
-            aria-label={isExpanded ? "Collapse details" : "Expand details"}
-          >
-            <svg 
-              className={`w-4 h-4 text-text-dimmed transition-transform ${isExpanded ? 'rotate-180' : ''}`}
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </TheButton>
         </div>
 
         {/* Voting Power Stats Grid */}
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-2 mb-2">
           <div className="text-center p-2 bg-surface-contrast rounded">
             <p className="text-xs text-text-dimmed mb-1">Total VP</p>
             <p className="text-sm font-semibold text-text-primary">
@@ -111,7 +96,7 @@ export default function VoterCard({ voter }: VoterCardProps) {
         </div>
 
         {/* Usage Progress Bar */}
-        <div className="mt-3">
+        <div className="mb-2">
           <SimpleProgressBar
             value={usagePercentage}
             max={100}
@@ -120,6 +105,29 @@ export default function VoterCard({ voter }: VoterCardProps) {
             variant="brand"
             size="md"
           />
+        </div>
+        
+        {/* Expand/Collapse Button - Moved to bottom */}
+        <div className="flex justify-center">
+          <button
+            onClick={handleExpand}
+            className="text-text-secondary hover:text-text-primary transition-colors px-3 py-1 rounded-md hover:bg-surface-hover"
+            aria-label={isExpanded ? "Collapse details" : "Expand details"}
+          >
+            <div className="flex items-center space-x-1">
+              <span className="text-xs">
+                {isExpanded ? 'Hide voting history' : 'Show voting history'}
+              </span>
+              <svg 
+                className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </button>
         </div>
       </CardContent>
 
