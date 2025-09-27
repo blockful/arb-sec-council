@@ -1,0 +1,16 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Shield background -->
+  <path d="M256 32L96 96V224C96 336 168 440 256 480C344 440 416 336 416 224V96L256 32Z" fill="#2D5BFF" stroke="#1E40AF" stroke-width="16"/>
+  
+  <!-- Inner shield highlight -->
+  <path d="M256 64L128 112V224C128 316.8 185.6 403.2 256 440C326.4 403.2 384 316.8 384 224V112L256 64Z" fill="#4F7CFF"/>
+  
+  <!-- Voting checkmark -->
+  <path d="M192 240L240 288L320 208" stroke="white" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Small dots representing votes/delegates -->
+  <circle cx="160" cy="176" r="16" fill="rgba(255,255,255,0.6)"/>
+  <circle cx="352" cy="176" r="16" fill="rgba(255,255,255,0.6)"/>
+  <circle cx="208" cy="144" r="12.8" fill="rgba(255,255,255,0.4)"/>
+  <circle cx="304" cy="144" r="12.8" fill="rgba(255,255,255,0.4)"/>
+</svg>

@@ -1,0 +1,90 @@
+{
+  "name": "Arbitrum Security Council Election Dashboard",
+  "short_name": "ARB Council Election",
+  "description": "Real-time voting transparency platform for Arbitrum delegates to monitor and track Security Council elections with complete visibility into the democratic process.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#1a1a1a",
+  "theme_color": "#2D5BFF",
+  "categories": ["governance", "blockchain", "voting", "transparency"],
+  "lang": "en-US",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon-16.svg",
+      "sizes": "16x16",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "form_factor": "wide",
+      "label": "Arbitrum Security Council Election Dashboard"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Live Votes",
+      "short_name": "Votes",
+      "description": "View live voting feed",
+      "url": "/#votes",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Contenders",
+      "short_name": "Contenders",
+      "description": "View contender leaderboard",
+      "url": "/#contenders",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Delegates",
+      "short_name": "Delegates",
+      "description": "View delegate statistics",
+      "url": "/#delegates",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ]
+}
