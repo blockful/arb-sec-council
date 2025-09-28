@@ -108,7 +108,6 @@ export const GET_CONTENDERS = gql`
         ensName
         name
         picture
-        bio
         totalVotes
         nominated
         title

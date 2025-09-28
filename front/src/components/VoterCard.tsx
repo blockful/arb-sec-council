@@ -62,7 +62,7 @@ export default function VoterCard({ voter }: VoterCardProps) {
   return (
     <Card className="bg-surface-default border border-border-default">
       {/* Card Header - Always Visible */}
-      <CardContent>
+      <CardContent className="pb-3">
         <div className="mb-2">
           <AddressDisplay
             address={voter.address}
@@ -134,7 +134,7 @@ export default function VoterCard({ voter }: VoterCardProps) {
       {/* Expandable Content - Voting History */}
       {isExpanded && (
         <div className="border-t border-border-default">
-          <CardContent>
+          <CardContent className="pt-3">
             <h4 className="text-sm font-medium text-text-primary mb-3">
               Voting History
             </h4>

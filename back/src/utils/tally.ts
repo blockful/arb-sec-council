@@ -3,7 +3,6 @@ interface TallyContender {
   account: {
     address: string;
     name: string;
-    bio: string;
     picture: string;
   };
   totalVotes: number;
@@ -32,7 +31,6 @@ const TALLY_QUERY = `
         account {
           address
           name
-          bio
           picture
         }
         totalVotes
@@ -89,7 +87,7 @@ export function mapTallyContenderToDb(contender: TallyContender, timestamp: bigi
     address: contender.account.address.toLowerCase(), // Normalize address to lowercase
     name: contender.account.name || null,
     picture: contender.account.picture || null,
-    bio: contender.account.bio || null,
+    bio: null, // Bio removed from Tally data
     totalVotes: BigInt(contender.totalVotes || 0),
     nominated: contender.nominated || false,
     title: contender.accountElectionMeta?.title || null,

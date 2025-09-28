@@ -13,7 +13,6 @@ interface Contender {
   ensName?: string | null;
   name?: string | null;
   picture?: string | null;
-  bio?: string | null;
   totalVotes: string;
   nominated: boolean;
   title?: string | null;
@@ -43,7 +42,7 @@ interface ContenderVotesData {
   };
 }
 
-type SortOption = 'vp' | 'timestamp';
+type SortOption = 'vp' | 'timestamp' | 'vote_weight' | 'remaining_vp';
 
 function ContenderCard({ contender, index }: { contender: Contender; index: number }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -66,6 +65,16 @@ function ContenderCard({ contender, index }: { contender: Contender; index: numb
       const aPower = BigInt(a.voter.votingPower);
       const bPower = BigInt(b.voter.votingPower);
       return aPower > bPower ? -1 : aPower < bPower ? 1 : 0;
+    } else if (sortBy === 'vote_weight') {
+      // Sort by vote weight/amount cast (highest first)
+      const aVotes = BigInt(a.votes);
+      const bVotes = BigInt(b.votes);
+      return aVotes > bVotes ? -1 : aVotes < bVotes ? 1 : 0;
+    } else if (sortBy === 'remaining_vp') {
+      // Sort by remaining voting power (highest first)
+      const aRemaining = BigInt(a.voter.availableVotes);
+      const bRemaining = BigInt(b.voter.availableVotes);
+      return aRemaining > bRemaining ? -1 : aRemaining < bRemaining ? 1 : 0;
     } else {
       // Sort by timestamp (most recent first)
       return BigInt(b.timestamp) > BigInt(a.timestamp) ? 1 : -1;
@@ -73,8 +82,8 @@ function ContenderCard({ contender, index }: { contender: Contender; index: numb
   });
 
   return (
-    <div className="border border-border-default rounded-lg p-3 sm:p-4 hover:bg-surface-hover transition-colors">
-      <div className="flex items-start space-x-3 sm:space-x-4">
+    <div className="border border-border-default rounded-lg p-2 sm:p-3">
+      <div className="flex items-start space-x-2 sm:space-x-3">
         {/* Rank */}
         <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-surface-solid-primary flex items-center justify-center text-text-primary font-semibold text-xs sm:text-sm">
           #{index + 1}
@@ -114,44 +123,33 @@ function ContenderCard({ contender, index }: { contender: Contender; index: numb
             </p>
           )}
           
-          {contender.bio && (
-            <p className="text-sm text-text-secondary mb-1 line-clamp-2">
-              {contender.bio}
-            </p>
-          )}
-          
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0 mb-2">
-            <div className="text-base sm:text-lg font-semibold text-text-primary">
-              {formatVotes(BigInt(contender.totalVotes))} votes
-            </div>
-            <div className="text-xs text-text-dimmed">
-              Total received
-            </div>
-          </div>
-          
-          {/* Expand/Collapse Button - Moved to bottom */}
-          <div className="flex justify-center mt-1">
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="text-text-secondary hover:text-text-primary transition-colors px-3 py-1 rounded-md hover:bg-surface-hover"
-              aria-label={isExpanded ? 'Hide voters' : 'Show voters'}
-            >
-              <div className="flex items-center space-x-1">
-                <span className="text-xs">
-                  {isExpanded ? 'Hide voters' : 'Show voters'}
-                </span>
-                <svg
-                  className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
-            </button>
+          <div className="text-base sm:text-lg font-semibold text-text-primary mb-1">
+            {formatVotes(BigInt(contender.totalVotes))} votes
           </div>
         </div>
+      </div>
+
+      {/* Expand/Collapse Button - Centered across full card width */}
+      <div className="flex justify-center mt-2">
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="text-text-secondary hover:text-text-primary transition-colors px-2 py-0.5 rounded-md hover:bg-surface-hover"
+          aria-label={isExpanded ? 'Hide voters' : 'Show voters'}
+        >
+          <div className="flex items-center space-x-1">
+            <span className="text-xs">
+              {isExpanded ? 'Hide voters' : 'Show voters'}
+            </span>
+            <svg
+              className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+        </button>
       </div>
 
       {/* Expanded Voters Section */}
@@ -169,6 +167,8 @@ function ContenderCard({ contender, index }: { contender: Contender; index: numb
                 className="text-xs bg-surface-default border border-border-default rounded px-2 py-1 text-text-primary focus:outline-none focus:ring-1 focus:ring-border-focus"
               >
                 <option value="vp">Voting Power</option>
+                <option value="vote_weight">Vote Weight</option>
+                <option value="remaining_vp">Remaining VP</option>
                 <option value="timestamp">Vote Time</option>
               </select>
             </div>
@@ -207,7 +207,7 @@ function ContenderCard({ contender, index }: { contender: Contender; index: numb
                       className="text-sm text-text-primary"
                       showCopyButton={false}
                     />
-                    {sortBy === 'vp' && (
+                    {(sortBy === 'vp' || sortBy === 'vote_weight' || sortBy === 'remaining_vp') && (
                       <span className="text-xs text-text-dimmed">
                         {formatTimeAgo(BigInt(vote.timestamp))}
                       </span>
@@ -219,6 +219,16 @@ function ContenderCard({ contender, index }: { contender: Contender; index: numb
                     </div>
                     <div className="text-xs text-text-secondary">
                       {sortBy === 'vp' ? (
+                        <div className="text-right">
+                          <div>VP: {formatVotes(BigInt(vote.voter.votingPower))}</div>
+                          <div className="text-text-success">Remaining: {formatVotes(BigInt(vote.voter.availableVotes))}</div>
+                        </div>
+                      ) : sortBy === 'vote_weight' ? (
+                        <div className="text-right">
+                          <div>VP: {formatVotes(BigInt(vote.voter.votingPower))}</div>
+                          <div className="text-text-success">Remaining: {formatVotes(BigInt(vote.voter.availableVotes))}</div>
+                        </div>
+                      ) : sortBy === 'remaining_vp' ? (
                         <div className="text-right">
                           <div>VP: {formatVotes(BigInt(vote.voter.votingPower))}</div>
                           <div className="text-text-success">Remaining: {formatVotes(BigInt(vote.voter.availableVotes))}</div>
