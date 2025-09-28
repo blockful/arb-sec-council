@@ -1,4 +1,4 @@
-export type VoterSortOption = 'latest-activity' | 'voting-power';
+export type VoterSortOption = 'latest-activity' | 'voting-power' | 'remaining-vp';
 export type SortDirection = 'asc' | 'desc';
 
 export interface VoterFilterState {

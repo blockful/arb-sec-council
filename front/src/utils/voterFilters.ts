@@ -29,6 +29,13 @@ export function sortVoters(voters: Voter[], filterState: VoterFilterState): Vote
         comparison = aPower > bPower ? -1 : aPower < bPower ? 1 : 0;
         break;
         
+      case 'remaining-vp':
+        // availableVotes is a string representation of BigInt
+        const aRemaining = BigInt(a.availableVotes);
+        const bRemaining = BigInt(b.availableVotes);
+        comparison = aRemaining > bRemaining ? -1 : aRemaining < bRemaining ? 1 : 0;
+        break;
+        
       default:
         return 0;
     }
