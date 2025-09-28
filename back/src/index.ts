@@ -71,11 +71,13 @@ ponder.on("SecurityCouncilNomineeGovernor:VoteCastForContender", async ({ event,
         totalVotes: BigInt(0),
         nominated: false,
         title: null,
-    }).onConflictDoUpdate({
+    }).onConflictDoUpdate((row) => ({
         ensName: contenderEnsName,
         ensUpdatedAt: contenderEnsUpdatedAt,
         timestamp: event.block.timestamp,
-    });
+        totalVotes: row.totalVotes! + BigInt(event.args.votes),
+        nominated: row.totalVotes! + BigInt(event.args.votes) > BigInt(9369469*10**18),
+    }));
 });
 
 ponder.on("SecurityCouncilNomineeGovernor:setup", async ({ context }) => {
@@ -95,17 +97,9 @@ ponder.on("SecurityCouncilNomineeGovernor:setup", async ({ context }) => {
                 name: dbContender.name,
                 picture: dbContender.picture,
                 bio: dbContender.bio,
-                totalVotes: dbContender.totalVotes,
-                nominated: dbContender.nominated,
+                totalVotes: BigInt(0),
+                nominated: false,
                 title: dbContender.title,
             })
-            .onConflictDoUpdate({
-                name: dbContender.name,
-                picture: dbContender.picture,
-                bio: dbContender.bio,
-                totalVotes: dbContender.totalVotes,
-                nominated: dbContender.nominated,
-                title: dbContender.title,
-            });
     }
 });
