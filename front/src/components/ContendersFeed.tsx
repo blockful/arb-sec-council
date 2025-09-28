@@ -73,10 +73,10 @@ function ContenderCard({ contender, index }: { contender: Contender; index: numb
   });
 
   return (
-    <div className="border border-border-default rounded-lg p-4 hover:bg-surface-hover transition-colors">
-      <div className="flex items-start space-x-4">
+    <div className="border border-border-default rounded-lg p-3 sm:p-4 hover:bg-surface-hover transition-colors">
+      <div className="flex items-start space-x-3 sm:space-x-4">
         {/* Rank */}
-        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-surface-solid-primary flex items-center justify-center text-text-primary font-semibold text-sm">
+        <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-surface-solid-primary flex items-center justify-center text-text-primary font-semibold text-xs sm:text-sm">
           #{index + 1}
         </div>
         
@@ -86,7 +86,7 @@ function ContenderCard({ contender, index }: { contender: Contender; index: numb
             <img
               src={contender.picture}
               alt={contender.name || 'Contender'}
-              className="w-12 h-12 rounded-full object-cover"
+              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover"
             />
           </div>
         )}
@@ -120,8 +120,8 @@ function ContenderCard({ contender, index }: { contender: Contender; index: numb
             </p>
           )}
           
-          <div className="flex items-center justify-between mb-2">
-            <div className="text-lg font-semibold text-text-primary">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0 mb-2">
+            <div className="text-base sm:text-lg font-semibold text-text-primary">
               {formatVotes(BigInt(contender.totalVotes))} votes
             </div>
             <div className="text-xs text-text-dimmed">
@@ -286,8 +286,8 @@ export default function ContendersFeed() {
   return (
     <Card className="bg-surface-default">
       <CardHeader>
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold text-text-primary">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 mb-4">
+          <h2 className="text-lg sm:text-xl font-semibold text-text-primary">
             Contenders Leaderboard
           </h2>
           <LiveIndicator />

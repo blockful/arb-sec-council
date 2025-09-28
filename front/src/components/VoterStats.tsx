@@ -35,8 +35,8 @@ export default function VoterStats() {
   return (
     <Card className="bg-surface-default">
       <CardHeader>
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold text-text-primary">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0 mb-4">
+          <h2 className="text-lg sm:text-xl font-semibold text-text-primary">
             Voters
           </h2>
           {/* Compact Filter Controls */}

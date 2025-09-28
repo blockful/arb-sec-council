@@ -82,8 +82,8 @@ export default function VotesFeed() {
   return (
     <Card className="bg-surface-default">
       <CardHeader>
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold text-text-primary">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 mb-4">
+          <h2 className="text-lg sm:text-xl font-semibold text-text-primary">
             Live Votes Feed
           </h2>
           <LiveIndicator />
@@ -103,8 +103,8 @@ export default function VotesFeed() {
                 key={vote.id}
                 className="border border-border-default rounded-lg p-3 hover:bg-surface-hover transition-colors"
               >
-                <div className="flex justify-between items-start mb-2">
-                  <div className="text-sm text-text-primary">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-0 mb-2">
+                  <div className="text-sm text-text-primary flex-1">
                     <div className="mb-1">
                       <AddressDisplay
                         address={vote.voter.address}
@@ -124,11 +124,11 @@ export default function VotesFeed() {
                         copyButtonSize="sm"
                       />
                     </div>
-                    <div className="text-lg font-semibold text-text-primary">
+                    <div className="text-base sm:text-lg font-semibold text-text-primary">
                       with {formatVotes(BigInt(vote.votes))} votes
                     </div>
                   </div>
-                  <div className="text-xs text-text-dimmed whitespace-nowrap ml-4">
+                  <div className="text-xs text-text-dimmed whitespace-nowrap sm:ml-4">
                     {formatTimeAgo(BigInt(vote.timestamp))}
                   </div>
                 </div>
