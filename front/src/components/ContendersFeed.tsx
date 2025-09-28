@@ -219,7 +219,10 @@ function ContenderCard({ contender, index }: { contender: Contender; index: numb
                     </div>
                     <div className="text-xs text-text-secondary">
                       {sortBy === 'vp' ? (
-                        <>VP: {formatVotes(BigInt(vote.voter.votingPower))}</>
+                        <div className="text-right">
+                          <div>VP: {formatVotes(BigInt(vote.voter.votingPower))}</div>
+                          <div className="text-text-success">Remaining: {formatVotes(BigInt(vote.voter.availableVotes))}</div>
+                        </div>
                       ) : (
                         <>{formatTimeAgo(BigInt(vote.timestamp))}</>
                       )}
