@@ -1,6 +1,7 @@
 import VotesFeed from '../components/VotesFeed';
 import VoterStats from '../components/VoterStats';
 import ContendersFeed from '../components/ContendersFeed';
+import CountdownTimer from '../components/CountdownTimer';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/shared/components/design-system';
 
 export default function Home() {
@@ -9,7 +10,43 @@ export default function Home() {
       {/* Header */}
       <header className="bg-surface-default shadow-sm border-b border-border-default">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          {/* Mobile Layout */}
+          <div className="flex flex-col gap-4 sm:hidden">
+            {/* Title */}
+            <div>
+              <h1 className="text-xl font-bold text-text-primary">
+                Arbitrum Security Council Election
+              </h1>
+              <p className="text-sm text-text-secondary mt-1">
+                Live voting dashboard and statistics
+              </p>
+            </div>
+            
+            {/* Second row: Countdown timer and network info */}
+            <div className="flex items-center justify-between gap-4">
+              <div className="bg-surface-elevated border border-border-default rounded-lg px-4 py-2 shadow-sm">
+                <CountdownTimer 
+                  targetTimestamp={1759154338} 
+                  label="Nomination phase ends"
+                />
+              </div>
+              
+              <div className="text-right">
+                <div className="text-xs text-text-dimmed">
+                  Network: Arbitrum One
+                </div>
+                <div className="text-xs text-text-dimmed">
+                  Updates every 10 seconds
+                </div>
+                <div className="text-xs text-text-dimmed mt-1">
+                  powered by blockful
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop Layout */}
+          <div className="hidden sm:flex sm:items-center sm:justify-between gap-4">
             <div>
               <h1 className="text-xl sm:text-2xl font-bold text-text-primary">
                 Arbitrum Security Council Election
@@ -18,7 +55,18 @@ export default function Home() {
                 Live voting dashboard and statistics
               </p>
             </div>
-            <div className="text-left sm:text-right">
+            
+            {/* Countdown timer in middle on desktop */}
+            <div className="flex justify-center">
+              <div className="bg-surface-elevated border border-border-default rounded-lg px-4 py-2 shadow-sm">
+                <CountdownTimer 
+                  targetTimestamp={1759154338} 
+                  label="Nomination phase ends"
+                />
+              </div>
+            </div>
+            
+            <div className="text-right">
               <div className="text-xs text-text-dimmed">
                 Network: Arbitrum One
               </div>
